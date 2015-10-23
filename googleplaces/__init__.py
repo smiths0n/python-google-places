@@ -511,7 +511,7 @@ class GooglePlaces(object):
             request_params['types'] = kwargs['types']
         url, add_response = _fetch_remote_json(
                 GooglePlaces.ADD_API_URL % (str(sensor).lower(),
-                self.api_key), json.dumps(request_params), use_http_post=True)
+                self.api_key), request_params, use_http_post=True)
         _validate_response(url, add_response)
         return {'place_id': add_response['place_id'],
                 'id': add_response['id']}
