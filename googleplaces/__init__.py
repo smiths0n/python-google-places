@@ -529,7 +529,7 @@ class GooglePlaces(object):
         request_params = {'place_id': place_id}
         url, delete_response = _fetch_remote_json(
                 GooglePlaces.DELETE_API_URL % (str(sensor).lower(),
-                self.api_key), json.dumps(request_params), use_http_post=True)
+                self.api_key), request_params, use_http_post=True)
         _validate_response(url, delete_response)
 
     def _add_required_param_keys(self):
@@ -779,7 +779,7 @@ class Place(object):
         self._rating = place_data.get('rating','')
         self._types = place_data.get('types','')
         self._icon = place_data.get('icon','')
-        if place_data.get('address_components') is None:
+        if place_data.get('address_components') is None and place_data.get('scope') == "GOOGLE":
             self._details = None
         else:
             self._details = place_data
